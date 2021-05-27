@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录界面</title>
+</head>
+
+<body>
+  <div class="login-page">
+    <form id='loginForm'>
+      <div>账号</label><input type="text" name="name"></div>
+      <div>密码</label><input type="password" name="password"></div>
+      <button type="submit">登录</button>
+    </form>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $('#loginForm').submit((e) => {
+        e.preventDefault()
+        const name = $('input[name=name]').val()
+        const password = $('input[name=password]').val()
+        if (!name || !password) alert('账号密码不能为空')
+        $.ajax({
+          url: "/v1/login",
+          method: 'post',
+          data: {
+            name: name,
+            password: password
+          },
+          headers: {
+            'x-csrf-token': getCookie("csrfToken"),
+          }
+        }).done(res => {
+          location.href = "/index"
+        }).catch(res => {
+          alert(res.statusText)
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>
