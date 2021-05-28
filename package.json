@@ -23,8 +23,17 @@
   "engines": {
     "node": ">=10.0.0"
   },
+  "pkg": {
+    "assets": [
+      "./config/*.js",
+      "./app.js",
+      "./app/**/*.js",
+      "./node_modules/nanoid/**/*.js"
+    ]
+  },
+  "bin": "build.js",
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-hello-egg",
+    "start": "egg-scripts start --daemon --title=egg-server-hello-egg --workers=2",
     "stop": "egg-scripts stop --title=egg-server-hello-egg",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
@@ -33,7 +42,8 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "build": "pkg . --targets node8-linux-x64 --out-path ./dist  --debug"
   },
   "ci": {
     "version": "10"

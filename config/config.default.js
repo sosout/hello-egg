@@ -18,6 +18,13 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
+  config.static = {
+    prefix: '/',
+    dir: process.cwd() + '/public'
+  };
+
+  config.rundir = process.cwd() + '/run';
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
